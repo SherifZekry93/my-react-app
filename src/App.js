@@ -34,7 +34,14 @@ class App extends Component {
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*"
     };
-    axios.post('/mi/api2.php', data, { headers: headers }).then(response => {
+    axios.post('https://100insure.com/mi/api2.php', data, 
+    { headers: headers,
+      proxy: {
+        host: 'https://100insure.com/mi/api2.php',
+      }
+    },
+   
+    ).then(response => {
       return response.data
     })
       .then(data => {
@@ -42,8 +49,8 @@ class App extends Component {
       }
       ).catch(error => {
         this.setState({
-          display:"error getting data",
-          showLoading:false
+          display: "error getting data",
+          showLoading: false
         })
       });
 
@@ -127,9 +134,14 @@ class App extends Component {
     this.setState({
       showLoading: true
     })
-    axios.get('/mi/api1.php', {headers: {
-      'Test-Header': 'test-value'
-    }}).then(response => {
+    axios.get('https://100insure.com/mi/api1.php', {
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      proxy: {
+        host: 'https://100insure.com/mi/api2.php',
+      }
+    }).then(response => {
       return response.data
     })
       .then(data =>
@@ -137,8 +149,8 @@ class App extends Component {
       ).catch(_ => {
         console.log("error ya 3m???")
         this.setState({
-          display:"error getting data",
-          showLoading:false
+          display: "error getting data",
+          showLoading: false
         })
       });
   };
@@ -156,7 +168,8 @@ class App extends Component {
         </div>
         <div className="buttons">
           <button className="btn-operator" onClick={() => {
-            this.setOperation('plus')}}>+</button>
+            this.setOperation('plus')
+          }}>+</button>
           <button className="btn-operator" onClick={() => {
             this.setOperation('minus')
           }
