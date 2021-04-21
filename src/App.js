@@ -131,8 +131,8 @@ class App extends Component {
     })
       .then(data =>
         this.mapLettersIntoNumbers(data)
-      ).catch(_ => {
-        console.log("error ya 3m???")
+      ).catch(error => {
+        console.log("here is the error",error);
         this.setState({
           display:"error getting data",
           showLoading:false
