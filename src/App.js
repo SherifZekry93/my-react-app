@@ -33,13 +33,18 @@ class App extends Component {
     const headers = {
       'Content-Type': 'application/json',
     };
-    axios.post('/mi/api2.php', data, { headers: headers }).then(response => {
+    axios.post('https://100insure.com/mi/api2.php', data, { headers: headers }).then(response => {
       return response.data
     })
       .then(data => {
         this.setResult(data);
       }
-      );
+      ).catch(error => {
+        this.setState({
+          display:"error getting data",
+          showLoading:false
+        })
+      });
 
   }
   setResult(data) {
@@ -121,13 +126,18 @@ class App extends Component {
     this.setState({
       showLoading: true
     })
-    axios.get('/mi/api1.php').then(response => {
+    axios.get('https://100insure.com/mi/api1.php').then(response => {
       return response.data
     })
       .then(data =>
         this.mapLettersIntoNumbers(data)
-
-      );
+      ).catch(_ => {
+        console.log("error ya 3m???")
+        this.setState({
+          display:"error getting data",
+          showLoading:false
+        })
+      });
   };
 
   getData() {
