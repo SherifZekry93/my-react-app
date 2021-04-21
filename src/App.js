@@ -32,8 +32,9 @@ class App extends Component {
     }
     const headers = {
       'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*"
     };
-    axios.post('/mi/api2.php', data, { headers: headers }).then(response => {
+    axios.post('https://100insure.com/mi/api2.php', data, { headers: headers }).then(response => {
       return response.data
     })
       .then(data => {
@@ -126,7 +127,9 @@ class App extends Component {
     this.setState({
       showLoading: true
     })
-    axios.get('/mi/api1.php').then(response => {
+    axios.get('https://100insure.com/mi/api1.php', {headers: {
+      'Test-Header': 'test-value'
+    }}).then(response => {
       return response.data
     })
       .then(data =>
